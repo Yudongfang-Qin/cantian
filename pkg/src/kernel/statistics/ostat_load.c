@@ -2298,7 +2298,7 @@ void knl_cache_cbo_text2variant(dc_entity_t *entity, uint32 col_id, text_t *colu
         case CT_TYPE_DATETIME_MYSQL:
         case CT_TYPE_DATE_MYSQL:
             ret_val->v_date = *(date_t *)column->str;
-            CT_LOG_DEBUG_INF("[Histgram ep_value Print]ep_value: %lld",ret_val->v_date); // todo: to str
+            CT_LOG_DEBUG_INF("[Histgram ep_value Print]ep_value: %lld",ret_val->v_date); 
             break;
         case CT_TYPE_DECIMAL:
         case CT_TYPE_NUMBER3:
@@ -2314,7 +2314,8 @@ void knl_cache_cbo_text2variant(dc_entity_t *entity, uint32 col_id, text_t *colu
         case CT_TYPE_VARCHAR:
         case CT_TYPE_STRING:
             MEMS_RETVOID_IFERR(memcpy_s(ret_val->v_text.str, column->len, column->str, column->len));
-            ret_val->v_text.len = column->len;              
+            ret_val->v_text.len = column->len; 
+            CT_LOG_DEBUG_INF("[Histgram ep_value Print]ep_value: %s",ret_val->v_text.str);              
             break;
         default:
             break;

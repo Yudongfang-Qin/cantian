@@ -1889,6 +1889,13 @@ static int tse_truncate_partition_impl(TcDb__TseDDLTruncateTablePartitionDef *re
         tse_ddl_unlock_table(&session->knl_session, CT_TRUE);
         CT_RETURN_IFERR_EX(status, stmt, ddl_ctrl);
     } else {
+        uint32_t part_cnt = req->is_subpart? DC_TABLE(&dc)->part_table->desc.subpart_cnt:DC_TABLE(&dc)->part_table->desc.partcnt;
+        if(part_cnt == n_defs_num){
+            status = knl_reset_serial_value(&session->knl_session,dc.handle)
+            if(status != CT_SUCCESS){
+                CT_LOG_RUN_ERR("[TRUNCATE TABLE] Failed to check table %s",T2S_EX(&def->name));
+            }
+        }
         knl_alter_table_commit(&session->knl_session, stmt, &dc, true);
         knl_close_dc(&dc);
         tse_ddl_unlock_table(&session->knl_session, CT_TRUE);
