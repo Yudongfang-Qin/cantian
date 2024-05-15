@@ -1076,8 +1076,7 @@ status_t mes_uc_create_link(uint32 inst_id, dpuc_addr *client_eid_addr, dpuc_add
         ret = mes_global_handle()->dpuc_link_create_with_addr(g_mes_uc_config.eid_obj, 
             g_mes_uc_config.dst_eid[inst_id], &con_param, __FUNCTION__);
         if (ret != DP_OK) {
-            CT_LOG_RUN_ERR("To intance %d create link failed.ret = %d", inst_id, ret);
-            cm_sleep(1000);
+            CT_LOG_RUN_ERR("To intance %d create link failed.", inst_id);
             return CT_ERROR;
         }
     }
